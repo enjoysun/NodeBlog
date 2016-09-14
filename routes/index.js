@@ -14,6 +14,7 @@ var crypto=require('crypto'),//加载加密模块
 	Art=require('../models/ArticleMsg.js'),
 	User=require('../models/user.js'),
 	http = require('http'),
+	htmldecode=require('../Common/Htmldecode'),
     blogURL = require('url');
 module.exports=function(app){
 	function crymd5(number) {
@@ -21,6 +22,7 @@ module.exports=function(app){
 		var respont=md5.update(number).digest('hex');
 		return respont;
 	}
+
 	function  checkloginin(req,res,next) {
 		if(!req.session.user){
 			Error='未登录';
@@ -153,7 +155,7 @@ module.exports=function(app){
 	app.post('/post',checkloginin);
 	app.post('/post',function(req,res){
 		var title=req.body.title,
-			content=req.body.post,
+			content= req.body.post,
             uname=req.session.user.name,
 			account=req.session.user.account;
         var artcilemsg=new Art({
@@ -184,7 +186,7 @@ module.exports=function(app){
 				res.render('Artdetail',{
 					title:'detail',
 					Arttitle:art[0].title,
-					Artbody:art[0].content,
+					Artbody:htmldecode.htmldecode(art[0].content),
 					nickname:art[0].username,
 					posttime:art[0].time.day
 				});

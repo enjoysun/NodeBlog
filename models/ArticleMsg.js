@@ -1,6 +1,7 @@
 var DB=require('./db');
 var ObjectID = require('mongodb').ObjectID;
 var markdown=require('markdown').markdown;
+var htmldecode=require('../Common/Htmldecode');
 // var markdown = require('markdown-js');
 String.prototype.format = function(args) {
     var result = this;
@@ -98,7 +99,7 @@ article.get=function (callback) {
                 }
                 arts.forEach(function (art) {
                     if(art){
-                        art.content=markdown.toHTML(art.content);
+                        art.content=htmldecode.htmldecode(markdown.toHTML(art.content));
                     }
 
                 })

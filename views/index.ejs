@@ -12,12 +12,10 @@
         </span>
     </div>
     <div class="panel-body">
-        <!--<%if(Arts[i].content){%>-->
-        <!--<%}%>-->
-        <%if (Arts[i].content.length>350){%>
-        <%= Arts[i].content.substring(0,350)+'......'%>
+        <%if (Arts[i].content.length>350){ %>
+        <%-  Arts[i].content.substring(0,350)+'......'%>
         <%}else {%>
-        <%- Arts[i].content+'......' -%>
+        <%- Arts[i].content %>
         <%}%>
     </div>
     <div class="panel-footer">
